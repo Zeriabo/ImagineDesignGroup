@@ -52,3 +52,9 @@
   float: left;
   margin-right: 15px;
 }
+.myDIV {
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  color: white;
+}
