@@ -66,11 +66,7 @@ this.setState(prevState => {
 
   
    }
-   handleClickk = (n) => {
-    
-    console.log('The position is:'+parseInt(n-1));
-
-  };
+ 
 onFileUpload=event=>
 {
  console.log(this.state.files)
@@ -84,21 +80,10 @@ handleRemoveFile = (pos) =>{
  this.state.files.push({
   id   : this.state.files.length,
   file :  file
-});//"<div><a href=\"#\" data-fileid=\"" + parseInt(this.state.files.length) + "\" onClick="+console.log(this)+">Remove</a></div>"
-var removeLink ="<div><a href='#' onClick="+this.handleClickk(this.state.files.length)+">Click me</a></div>";
-//<a href='#' onClick="+this.handleClickk(this.state.files.length)+">Click me</a></div>";
-console.log(removeLink)
-console.log(this.state.files)
+});
 
-//"<a class=\"removeFile\" href=\"#\" data-fileid=\"" + this.state.files.length + "\">Remove</a>";console.log($(this).parent().children('a').data('fileid'))this.state.files.splice(this.state.files.length-1,1)
-//this.state.files.splice(this.state.files.length-1,1);
-     document.getElementsByTagName("p")[0].innerHTML+=" "+event.target.files[0].name+ removeLink
+     document.getElementsByTagName("p")[0].innerHTML+=" "+event.target.files[0].name
 
-   function  handleDelFile  (e) {
-  
-    console.log('(this).parent().childr')
-  
-   }  
   
  
  
@@ -106,8 +91,7 @@ console.log(this.state.files)
  
 handleChangeConfirmed = () => {
   this.state.colors.push(this.state.color)
-// this.setState({ colors:[...this.state.colors,this.state.color]});
-console.log(this.state.colors)
+
 }
 handleRemoveLast = ()=>{
 
@@ -164,7 +148,7 @@ return (this.state.colors.length==0)?   document.getElementById("myDIV1").style.
 (this.state.colors.length==4)?   document.getElementById("myDIV5").style.backgroundColor = color.hex:null
 };
 handleSubmit(e) {
-  alert('The value is: ' + this.state.colors);
+
   e.preventDefault();
 }
 
