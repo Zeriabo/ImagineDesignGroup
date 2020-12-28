@@ -8,21 +8,53 @@ import img3 from './images/i3.jpeg'
 import _default from 'react-bootstrap/esm/ModalFooter'
 //import transitions from './trans'
 export default class Interior extends Component { 
-  state = {color: '#fff',index:0,colors:[]};
- 
+  state = {color: '#fff',index:0,colors:[],files:[]};
+  handleClickk = (e) => {
+    e.preventDefault();
+    console.log('The link was clicked.');
+  };
      
    handleSubmit = this.handleSubmit.bind(this);
+   handleClickk = this.handleClickk.bind(this);
+onFileUpload=event=>
+{
+ console.log(this.state.files)
+}
+handleRemoveFile = (pos) =>{
+  console.log(pos)
+}
+   onFileChange=event =>{
+    var file = event.target.files[0];
+ //   console.log(this.attributes[1].nodeValue)
+ this.state.files.push({
+  id   : this.state.files.length,
+  file :  file
+});//"<div><a href=\"#\" data-fileid=\"" + parseInt(this.state.files.length) + "\" onClick="+console.log(this)+">Remove</a></div>"
+var removeLink ="<div><a href='#' onClick=this.handleClickk>Click me</a></div>"
+console.log(removeLink)
+console.log(this.state.files)
 
-   handleChangeConfirmed = (color) => {
-     if(this.state.colors.length!=5){
-    this.setState({ colors:[...this.state.colors,this.state.color]});
-    
-  }else{
-    alert("Your cant add more than "+this.state.colors.length+" Colors")
-  }
+//"<a class=\"removeFile\" href=\"#\" data-fileid=\"" + this.state.files.length + "\">Remove</a>";console.log($(this).parent().children('a').data('fileid'))this.state.files.splice(this.state.files.length-1,1)
+//this.state.files.splice(this.state.files.length-1,1);
+     document.getElementsByTagName("p")[0].innerHTML+=" "+event.target.files[0].name+ removeLink
+
+   function  handleDelFile  (e) {
+  
+    console.log('(this).parent().childr')
+  
+   }  
+  
+  
+   }
+  
+  
+   handleChangeConfirmed = () => {
+     this.state.colors.push(this.state.color)
+   // this.setState({ colors:[...this.state.colors,this.state.color]});
+   console.log(this.state.colors)
    }
    handleRemoveLast = ()=>{
-   console.log(this.state.colors.length)
+
       if(this.state.colors.length==1)  { document.getElementById("myDIV1").style.backgroundColor = '#FFFAF0'
       document.getElementById("myDIV2").style.backgroundColor = '#FFFAF0'
       document.getElementById("myDIV3").style.backgroundColor = '#FFFAF0'
@@ -44,7 +76,7 @@ export default class Interior extends Component {
      {
        this.state.colors.pop();
 
-       console.log(this.state.colors)
+     
      }else{
        console.log("Can't Remove from Empty list")
      }
@@ -150,17 +182,14 @@ export default class Interior extends Component {
        <td><button  type='button' action='' onClick ={this.handleRemoveLast}>Remove last</button></td>
        <td><button  type='button' action='' onClick ={this.handleEmptyList}>Empty list</button></td></tr>
 
-       <tr><td>Files:</td>
-       <label for="myfile">Select a file:</label>
-       <div> 
-                <input type="file" onChange={this.onFileChange} /> 
-                <button onClick={this.onFileUpload}> 
-                  Upload! 
-                </button> 
-            </div> 
-       <td><input type="file" id="myfile" name="myfile"> </input> </td>
-       
-       
+       <tr><td></td>
+       <td>   <label for="myfile">Select a file:</label>
+    
+     <input type="file" onChange={this.onFileChange} /> 
+   </td>
+       <tr><td></td></tr>
+   
+       <tr><td><p id="files"></p></td></tr>
        
        </tr>
 
