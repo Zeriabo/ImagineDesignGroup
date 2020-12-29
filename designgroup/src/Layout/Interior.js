@@ -6,14 +6,30 @@ import img1 from './images/i1.jpeg'
 import img2 from './images/i2.jpeg'
 import img3 from './images/i3.jpeg'
 import _default from 'react-bootstrap/esm/ModalFooter'
+import { MDBContainer, MDBRow, MDBCol, MDBCardBody, MDBCardTitle, MDBInput, MDBBtn,Button } from 'mdbreact';
+
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+
+
 //import transitions from './trans'
 export default class Interior extends React.Component { 
   constructor(props) {
     super(props);
-  this.state = {color: '#fff',index:0,colors:[],files:[],changedFileIndex: -1};
+    this.toggle = this.toggle.bind(this);
+  this.state = {color: '#fff',index:0,colors:[],files:[],changedFileIndex: -1, dropdownOpen: false,  dropDownValue: 'Select action',};
   
 
 this.fileUploaderRef = React.createRef();
+}
+toggle() {
+  this.setState(prevState => ({
+    dropdownOpen: !prevState.dropdownOpen
+  
+  }));
+
+}
+changeValue(e) {
+  this.setState({dropDownValue: e.currentTarget.textContent})
 }
 
 fileUpload = (e) => {
@@ -154,84 +170,53 @@ handleSubmit(e) {
 
   render() {
     return (
+      <MDBContainer>
       <form onSubmit={this.handleSubmit}>
-       <table border = '1' >
-    <tr><td><br /></td></tr>
-    <tr><td><br /></td></tr>
-    <tr><td><br /></td></tr>
- <tr><td>
-      <label>
-     Name:
-     </label>
-     </td>
-    <td>
-    <input type="text" name="name"  />
-    </td></tr>
- <tr><td> <label>
      
-      Theme:
-      </label>
-     </td>
-      <td>
-      <select name="theme" id="cars" size="10">
-     <option value="Chinese">Chinese</option>
-     <option value="Egyptian">Egyptian</option>
-      <option value="Siamese">Siamese</option>
-      <option value="Korean">Korean</option>
-     <option value="Korean">Korean</option>
-     <option value="audi">Korean</option>
-    <option value="audi">Korean</option>
-      <option value="audi">Korean</option>
-      <option value="audi">Korean</option>
-      <option value="audi">Korean</option>
-    </select></td></tr>
- 
- </table>
- 
+   
+    <MDBCardTitle>Design Application</MDBCardTitle>
 
- <tr>
-    <td> <label>
-     
-     Color:
-     </label>
-      </td><td><SketchPicker 
-                 width={220}
-                 color={this.state.color}
-                 onChange={this.handleChangeComplete}
-      /></td>   
-      <td></td>
-     
-       <td><label>Color 1</label>
-         <div class="myDIV" id="myDIV1">
+    <MDBCol>
+    <input type="text" name="name" placeholder="Name" />
+    </MDBCol>
+    <MDBRow> &nbsp;</MDBRow>
+    <MDBRow>
+      <MDBCol>
+  
+    <input type="text" name="Email" placeholder="Email" />
+    </MDBCol>
 
-</div></td><td><label>Color 2</label>
-  <div class="myDIV" id="myDIV2" >
+    </MDBRow>
+    <MDBRow> &nbsp;</MDBRow>
+ <MDBRow><MDBCol middle='true'> 
 
-</div></td>
-<td><label>Color 3</label><div class="myDIV" id="myDIV3" >
+    <div class="col-md-4"><Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} color="primary">
+        <DropdownToggle caret>
+        {this.state.dropDownValue}
+        </DropdownToggle>
+        <DropdownMenu>
+          <DropdownItem header>Classic Themes</DropdownItem>
+          <DropdownItem>New Classic</DropdownItem>
+          <DropdownItem>  <div onClick={this.changeValue}>Another Action</div></DropdownItem>
+          <DropdownItem divider />
+          <DropdownItem header>Others</DropdownItem>
+          <DropdownItem>Contemporary</DropdownItem>
+          <DropdownItem>Modern</DropdownItem>
+          <DropdownItem>Futuristic</DropdownItem>
+        </DropdownMenu>
+      </Dropdown></div>
+    </MDBCol></MDBRow>
+    <div class="col-md-12">
+       <MDBCol>  
+       <label for="myfile"><b>Select Your files:</b>
+       <input type="file" multiple="multiple" id="file" ref={this.fileUploaderRef} onChange={this.fileUpload}/></label>
+   </MDBCol>
+       <MDBRow><MDBCol><table className="filesName">
 
-</div></td>
-<td><label>Color 4</label><div class="myDIV" id="myDIV4" >
-
-</div></td>
-<td><label>Color 5</label><div class="myDIV" id="myDIV5" >
-
-</div></td>
-       </tr>
-<tr> <td><button  type='button' action='' onClick ={this.handleChangeConfirmed}>Confirm Color</button></td>
-       <td><button  type='button' action='' onClick ={this.handleRemoveLast}>Remove last</button></td>
-       <td><button  type='button' action='' onClick ={this.handleEmptyList}>Empty list</button></td></tr>
-
-       <tr><td></td>
-       <td>   <label for="myfile">Select a file:</label>
-    
-       <input type="file" multiple="multiple" id="file" ref={this.fileUploaderRef} onChange={this.fileUpload}/>
-   </td>
-       <tr><td><table className="filesName">
           <tbody>
           {
               this.state.files.map((file, i) =>
-                  <tr key={i}>
+                  <MDBRow key={i}>
                       <th style={{textAlign: "left"}}>{file.name} :</th>
                       <th>
                           <button type="file" onClick={() => this.Change(i)}>Change</button>
@@ -239,20 +224,78 @@ handleSubmit(e) {
                       <th>
                           <button onClick={() => this.Delete(file.name)}>Delete</button>
                       </th>
-                  </tr>
+                      
+                  </MDBRow>
               )
           }
           </tbody>
       </table>
-       </td></tr>
+       </MDBCol></MDBRow>
    
-       <tr><td><p id="files"></p></td></tr>
-       
-       </tr>
-
-    <input type="submit" value="Submit" /> 
+       <MDBRow><MDBCol><p id="files"></p></MDBCol></MDBRow>
+       </div>
+ <MDBRow> &nbsp;</MDBRow>
  
+
+ <MDBRow>
+    <MDBCol> 
+    <label htmlFor="formGroupExampleInput"><big>Color: </big></label>
+      </MDBCol><MDBCol><SketchPicker 
+                 width={220}
+                 color={this.state.color}
+                 onChange={this.handleChangeComplete}
+      /></MDBCol>   
+      <MDBCol rowSpan='2' ><label htmlFor="formGroupExampleInput">1<sub>st</sub> Color</label></MDBCol>
+      
+       <MDBCol class="myDIV" id="myDIV1">
+       </MDBCol>
+       <MDBCol rowSpan='2' ><label htmlFor="formGroupExampleInput">2<sub>nd</sub> Color</label></MDBCol>
+       
+ 
+  <MDBCol class="myDIV" id="myDIV2">
+</MDBCol>
+<MDBCol rowSpan='2' ><label htmlFor="formGroupExampleInput">3<sub>rd</sub> Color</label></MDBCol>
+<MDBCol class="myDIV" id="myDIV3">
+</MDBCol>
+<MDBCol rowSpan='2' ><label htmlFor="formGroupExampleInput">4<sub>th</sub> Color</label></MDBCol>
+<MDBCol class="myDIV" id="myDIV4">
+</MDBCol>
+<MDBCol rowSpan='2' ><label htmlFor="formGroupExampleInput">5<sub>st</sub> Color</label></MDBCol>
+ <MDBCol class="myDIV" id="myDIV5">
+</MDBCol>
+       </MDBRow>
+<MDBRow>
+<div class="col-5">
+   <MDBCol>
+
+<Button variant="primary" action='' onClick ={this.handleChangeConfirmed}>Confirm Color</Button></MDBCol>
+
+       <MDBCol>
+       <Button variant="warning" action='' onClick ={this.handleRemoveLast}>Remove last</Button>
+         </MDBCol>
+       <MDBCol> <Button variant="danger"  action='' onClick ={this.handleEmptyList}>Empty list</Button>
+  </MDBCol></div>
+ 
+       
+       </MDBRow>
+       <div class="col-13">   
+<MDBRow><MDBCol  >
+          <textarea cols="50" value={this.state.value} onChange={this.handleChange} rows={6} name="info" placeholder='  Additional Informations'/>        
+  </MDBCol></MDBRow>
+  <div class="row-md-14">
+  <Button as="input" type="submit" value="Submit" >Submit</Button>
+  &nbsp;&nbsp;&nbsp;
+  <Button as="input" type="reset" value="Reset" >Reset</Button> 
+
+  </div>
+ 
+  </div>
+   
+   
       </form>
+      
+      </MDBContainer>
+     
     );
   }
 }
