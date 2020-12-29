@@ -9,6 +9,7 @@ import _default from 'react-bootstrap/esm/ModalFooter'
 import { MDBContainer, MDBRow, MDBCol, MDBCardBody, MDBCardTitle, MDBInput, MDBBtn,Button } from 'mdbreact';
 import Form from 'react-bootstrap/Form'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import emailjs from 'emailjs-com';
 
 
 //import transitions from './trans'
@@ -166,6 +167,12 @@ return (this.state.colors.length==0)?   document.getElementById("myDIV1").style.
 handleSubmit = (e)=>{
   //this.state.colors,this.state.name,this.state.email,this.state.files
   console.log(this.state.colors,this.state.name,this.state.email,this.state.files,this.state.dropDownValue)
+  emailjs.send('service_0r9ih5c',"template_pfug14a", this.state, 'user_sjaoSadgmf5VEhR2wcW1T')
+    .then((response) => {
+       console.log('SUCCESS!', response.status, response.text);
+    }, (err) => {
+       console.log('FAILED...', err);
+    });
 e.preventDefault();
 }
 
