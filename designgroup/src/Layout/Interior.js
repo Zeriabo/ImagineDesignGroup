@@ -7,7 +7,7 @@ import img2 from './images/i2.jpeg'
 import img3 from './images/i3.jpeg'
 import _default from 'react-bootstrap/esm/ModalFooter'
 import { MDBContainer, MDBRow, MDBCol, MDBCardBody, MDBCardTitle, MDBInput, MDBBtn,Button } from 'mdbreact';
-
+import Form from 'react-bootstrap/Form'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 
@@ -16,7 +16,7 @@ export default class Interior extends React.Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
-  this.state = {color: '#fff',index:0,colors:[],files:[],changedFileIndex: -1, dropdownOpen: false,  dropDownValue: 'Select action',};
+  this.state = {color: '#fff',index:0,colors:[],files:[],changedFileIndex: -1, dropdownOpen: false,  dropDownValue: 'Select action'};
   
 
 this.fileUploaderRef = React.createRef();
@@ -28,9 +28,7 @@ toggle() {
   }));
 
 }
-changeValue(e) {
-  this.setState({dropDownValue: e.currentTarget.textContent})
-}
+changeValue =(event)=> this.setState({dropDownValue: event.currentTarget.textContent})
 
 fileUpload = (e) => {
 let changedFile = e.target.files[0];
@@ -191,25 +189,32 @@ handleSubmit(e) {
  <MDBRow><MDBCol middle='true'> 
 
     <div class="col-md-4"><Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} color="primary">
-        <DropdownToggle caret>
+        <DropdownToggle caret color="btn btn-outline-primary">
         {this.state.dropDownValue}
         </DropdownToggle>
         <DropdownMenu>
           <DropdownItem header>Classic Themes</DropdownItem>
-          <DropdownItem>New Classic</DropdownItem>
-          <DropdownItem>  <div onClick={this.changeValue}>Another Action</div></DropdownItem>
+          <DropdownItem><div onClick={this.changeValue}>New Classic</div></DropdownItem>
+          <DropdownItem>  <div onClick={this.changeValue}>Classic</div></DropdownItem>
           <DropdownItem divider />
-          <DropdownItem header>Others</DropdownItem>
-          <DropdownItem>Contemporary</DropdownItem>
-          <DropdownItem>Modern</DropdownItem>
-          <DropdownItem>Futuristic</DropdownItem>
+          <DropdownItem header><div onClick={this.changeValue}>Others</div></DropdownItem>
+          <DropdownItem><div onClick={this.changeValue}>Contemporary</div></DropdownItem>
+          <DropdownItem><div onClick={this.changeValue}>Modern</div></DropdownItem>
+          <DropdownItem><div onClick={this.changeValue}>Futuristic</div></DropdownItem>
         </DropdownMenu>
       </Dropdown></div>
     </MDBCol></MDBRow>
     <div class="col-md-12">
        <MDBCol>  
-       <label for="myfile"><b>Select Your files:</b>
-       <input type="file" multiple="multiple" id="file" ref={this.fileUploaderRef} onChange={this.fileUpload}/></label>
+       <Form>
+  <Form.File 
+    id="custom-file"
+    label="Custom file input"
+    onChange={this.fileUpload}
+    multiple="multiple"
+    custom
+  />
+</Form>
    </MDBCol>
        <MDBRow><MDBCol><table className="filesName">
 
@@ -219,10 +224,10 @@ handleSubmit(e) {
                   <MDBRow key={i}>
                       <th style={{textAlign: "left"}}>{file.name} :</th>
                       <th>
-                          <button type="file" onClick={() => this.Change(i)}>Change</button>
+                          <button type="file" class="btn btn-outline-warning btn-sm" onClick={() => this.Change(i)}>Change</button>
                       </th>
                       <th>
-                          <button onClick={() => this.Delete(file.name)}>Delete</button>
+                          <button   class="btn btn-outline-danger btn-sm" onClick={() => this.Delete(file.name)}>Delete</button>
                       </th>
                       
                   </MDBRow>
@@ -293,7 +298,7 @@ handleSubmit(e) {
    
    
       </form>
-      
+    
       </MDBContainer>
      
     );
