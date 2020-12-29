@@ -17,8 +17,8 @@ export default class Interior extends React.Component {
     super(props);
     this.toggle = this.toggle.bind(this);
   this.state = {name:'',email:'',color: '#fff',index:0,colors:[],files:[],changedFileIndex: -1, dropdownOpen: false,  dropDownValue: 'Select action'};
-  
 
+  this.handleSubmit = this.handleSubmit.bind(this)
 this.fileUploaderRef = React.createRef();
 }
 toggle() {
@@ -29,8 +29,8 @@ toggle() {
 
 }
 changeValue =(event)=> this.setState({dropDownValue: event.currentTarget.textContent})
-setName = (e)=>  this.setState({name: e.target.name});
-setEmail =(e)=>  this.setState({email: e.target.email});
+setName = (event)=>   this.setState({name: event.target.value});
+setEmail =(event)=>  this.setState({email: event.target.value});
 fileUpload = (e) => {
 let changedFile = e.target.files[0];
 let uploadedFiles = e.target.files;
@@ -58,16 +58,16 @@ if (this.state.changedFileIndex >= 0) {
 };
 
 Change(index, file) {
-console.log("Change Function");
+
 this.setState({changedFileIndex: index});
 this.fileUploaderRef.current.click();
 }
 
-Delete(name) {
+Delete(filename) {
 this.setState(prevState => {
     const list = [];
     prevState.files.map((file, i) => {
-        if (file.name !== name) {
+        if (file.name !== filename) {
             list.push(file);
         }
     });
@@ -91,8 +91,7 @@ handleRemoveFile = (pos) =>{
 }
    onFileChange=event =>{
     var file = event.target.files[0];
- //   console.log(this.attributes[1].nodeValue)
- this.state.files.push({
+    this.state.files.push({
   id   : this.state.files.length,
   file :  file
 });
@@ -164,10 +163,12 @@ return (this.state.colors.length==0)?   document.getElementById("myDIV1").style.
 };
 ///handleSubmit=(e)=>alert(this.state) 
 
-handleChangeComplete = (e) => { 
+handleSubmit = (e)=>{
+  //this.state.colors,this.state.name,this.state.email,this.state.files
+  console.log(this.state.colors,this.state.name,this.state.email,this.state.files,this.state.dropDownValue)
 e.preventDefault();
-console.log(this.state)
 }
+
 
 
   render() {
@@ -179,13 +180,13 @@ console.log(this.state)
     <MDBCardTitle>Design Application</MDBCardTitle>
 
     <MDBCol>
-    <input type="text"  placeholder="Name" onchange={this.setName} />
+    <input type="text" name="name" placeholder="Name" value={this.state.name} onChange={this.setName} />
     </MDBCol>
     <MDBRow> &nbsp;</MDBRow>
     <MDBRow>
       <MDBCol>
   
-    <input type="text" name="email" placeholder="Email" onchange={this.setEmail}   />
+    <input type="text" name="email" placeholder="Email" value={this.state.email} onChange={this.setEmail}   />
     </MDBCol>
 
     </MDBRow>
