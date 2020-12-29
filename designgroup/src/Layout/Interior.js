@@ -16,7 +16,7 @@ export default class Interior extends React.Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
-  this.state = {color: '#fff',index:0,colors:[],files:[],changedFileIndex: -1, dropdownOpen: false,  dropDownValue: 'Select action'};
+  this.state = {name:'',email:'',color: '#fff',index:0,colors:[],files:[],changedFileIndex: -1, dropdownOpen: false,  dropDownValue: 'Select action'};
   
 
 this.fileUploaderRef = React.createRef();
@@ -29,7 +29,8 @@ toggle() {
 
 }
 changeValue =(event)=> this.setState({dropDownValue: event.currentTarget.textContent})
-
+setName = (e)=>  this.setState({name: e.target.name});
+setEmail =(e)=>  this.setState({email: e.target.email});
 fileUpload = (e) => {
 let changedFile = e.target.files[0];
 let uploadedFiles = e.target.files;
@@ -161,10 +162,13 @@ return (this.state.colors.length==0)?   document.getElementById("myDIV1").style.
 (this.state.colors.length==3)?   document.getElementById("myDIV4").style.backgroundColor = color.hex:
 (this.state.colors.length==4)?   document.getElementById("myDIV5").style.backgroundColor = color.hex:null
 };
-handleSubmit(e) {
+///handleSubmit=(e)=>alert(this.state) 
 
-  e.preventDefault();
+handleChangeComplete = (e) => { 
+e.preventDefault();
+console.log(this.state)
 }
+
 
   render() {
     return (
@@ -175,20 +179,20 @@ handleSubmit(e) {
     <MDBCardTitle>Design Application</MDBCardTitle>
 
     <MDBCol>
-    <input type="text" name="name" placeholder="Name" />
+    <input type="text"  placeholder="Name" onchange={this.setName} />
     </MDBCol>
     <MDBRow> &nbsp;</MDBRow>
     <MDBRow>
       <MDBCol>
   
-    <input type="text" name="Email" placeholder="Email" />
+    <input type="text" name="email" placeholder="Email" onchange={this.setEmail}   />
     </MDBCol>
 
     </MDBRow>
     <MDBRow> &nbsp;</MDBRow>
  <MDBRow><MDBCol middle='true'> 
 
-    <div class="col-md-4"><Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} color="primary">
+    <div class="col-md-12"><Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} color="primary">
         <DropdownToggle caret color="btn btn-outline-primary">
         {this.state.dropDownValue}
         </DropdownToggle>
@@ -297,7 +301,7 @@ handleSubmit(e) {
   </div>
  
   </div>
-   
+   {this.state.name}
    
       </form>
     
