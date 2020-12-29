@@ -206,10 +206,12 @@ handleSubmit(e) {
     </MDBCol></MDBRow>
     <div class="col-md-12">
        <MDBCol>  
+      
        <Form>
   <Form.File 
     id="custom-file"
     label="Custom file input"
+    ref={this.fileUploaderRef}
     onChange={this.fileUpload}
     multiple="multiple"
     custom
