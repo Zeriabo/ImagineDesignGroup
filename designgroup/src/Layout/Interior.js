@@ -10,14 +10,14 @@ import { MDBContainer, MDBRow, MDBCol, MDBCardBody, MDBCardTitle, MDBInput, MDBB
 import Form from 'react-bootstrap/Form'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import emailjs from 'emailjs-com';
-
-
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 //import transitions from './trans'
 export default class Interior extends React.Component { 
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
-  this.state = {name:'',email:'',color: '#fff',index:0,colors:[],files:[],changedFileIndex: -1, dropdownOpen: false,  dropDownValue: 'Select action'};
+  this.state = {name:'',email:'',color: '#fff',index:0,colors:[],files:[],changedFileIndex: -1, dropdownOpen: false,  dropDownValue: 'Select action',key:'',note:''};
 
   this.handleSubmit = this.handleSubmit.bind(this)
 this.fileUploaderRef = React.createRef();
@@ -166,20 +166,34 @@ return (this.state.colors.length==0)?   document.getElementById("myDIV1").style.
 
 handleSubmit = (e)=>{
   //this.state.colors,this.state.name,this.state.email,this.state.files
-  console.log(this.state.colors,this.state.name,this.state.email,this.state.files,this.state.dropDownValue)
-  emailjs.send('service_0r9ih5c',"template_pfug14a", this.state, 'user_sjaoSadgmf5VEhR2wcW1T')
-    .then((response) => {
-       console.log('SUCCESS!', response.status, response.text);
-    }, (err) => {
-       console.log('FAILED...', err);
-    });
+ // console.log(this.state.colors,this.state.name,this.state.email,this.state.files,this.state.dropDownValue)
+ console.log(this.state.files[0])
+  // emailjs.send('service_0r9ih5c',"template_pfug14a", this.state, 'user_sjaoSadgmf5VEhR2wcW1T')
+  //   .then((response) => {
+  //      console.log('SUCCESS!', response.status, response.text);
+  //   }, (err) => {
+  //      console.log('FAILED...', err);
+  //   });
+    this.sendEmail(this.state).then(submited => {
+      toast.success('Email sent successfully');
+      
+      this.setState({ key: 'cleared' })
+      this.setState({ note: 'Email sent successfully', loading: false });},)
+      .catch(errors => {toast.error('Error occured')
+    this.setState({ errors, loading: false })});
 e.preventDefault();
 }
 
-
+sendEmail = async emailData => 
+{
+  console.log(emailData);
+  return axios.post('http://localhost:4444/api/v1/form', this.state)
+  .then(res => res.data,err => Promise.reject(err.response.data.errors))
+};
 
   render() {
     return (
+      
       <MDBContainer>
       <form onSubmit={this.handleSubmit}>
      
@@ -312,7 +326,7 @@ e.preventDefault();
    {this.state.name}
    
       </form>
-    
+     
       </MDBContainer>
      
     );
