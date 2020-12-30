@@ -2,9 +2,6 @@ import React, { useState, useCallback, Component } from 'react'
 import  {useTransition}  from 'react-spring'
 import {  animated } from 'react-spring'
 import { SketchPicker } from 'react-color'
-import img1 from './images/i1.jpeg'
-import img2 from './images/i2.jpeg'
-import img3 from './images/i3.jpeg'
 import _default from 'react-bootstrap/esm/ModalFooter'
 import { MDBContainer, MDBRow, MDBCol, MDBCardBody, MDBCardTitle, MDBInput, MDBBtn,Button } from 'mdbreact';
 import Form from 'react-bootstrap/Form'
@@ -168,6 +165,7 @@ handleSubmit = (e)=>{
   //this.state.colors,this.state.name,this.state.email,this.state.files
  // console.log(this.state.colors,this.state.name,this.state.email,this.state.files,this.state.dropDownValue)
  console.log(this.state.files)
+ console.log(this.fileUploaderRef)
   // emailjs.send('service_0r9ih5c',"template_pfug14a", this.state, 'user_sjaoSadgmf5VEhR2wcW1T')
   //   .then((response) => {
   //      console.log('SUCCESS!', response.status, response.text);
@@ -235,12 +233,14 @@ sendEmail = async emailData =>
       
        <Form>
   <Form.File 
-    id="custom-file"
+  
+  id="custom-file"
     label="Custom file input"
     ref={this.fileUploaderRef}
     onChange={this.fileUpload}
     multiple="multiple"
     custom
+    webkitdirectory
   />
 </Form>
    </MDBCol>
