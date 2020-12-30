@@ -167,7 +167,7 @@ return (this.state.colors.length==0)?   document.getElementById("myDIV1").style.
 handleSubmit = (e)=>{
   //this.state.colors,this.state.name,this.state.email,this.state.files
  // console.log(this.state.colors,this.state.name,this.state.email,this.state.files,this.state.dropDownValue)
- console.log(this.state.files[0])
+ console.log(this.state.files)
   // emailjs.send('service_0r9ih5c',"template_pfug14a", this.state, 'user_sjaoSadgmf5VEhR2wcW1T')
   //   .then((response) => {
   //      console.log('SUCCESS!', response.status, response.text);
