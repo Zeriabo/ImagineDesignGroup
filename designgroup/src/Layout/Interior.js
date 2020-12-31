@@ -53,6 +53,9 @@ if (this.state.changedFileIndex >= 0) {
     });
 } else
     this.setState({files: [...e.target.files]});
+  
+  
+this.onFileUpload()
 };
 
 Change(index, file) {
@@ -82,7 +85,7 @@ this.setState(prevState => {
  
 onFileUpload=event=>
 {
- console.log(this.state.files)
+ console.log(this.state)
 }
 handleRemoveFile = (pos) =>{
   console.log(pos)
@@ -91,7 +94,8 @@ handleRemoveFile = (pos) =>{
     var file = event.target.files[0];
     this.state.files.push({
   id   : this.state.files.length,
-  file :  file
+  file :  file,
+  dirs: dirs
 });
 
      document.getElementsByTagName("p")[0].innerHTML+=" "+event.target.files[0].name
@@ -159,19 +163,9 @@ return (this.state.colors.length==0)?   document.getElementById("myDIV1").style.
 (this.state.colors.length==3)?   document.getElementById("myDIV4").style.backgroundColor = color.hex:
 (this.state.colors.length==4)?   document.getElementById("myDIV5").style.backgroundColor = color.hex:null
 };
-///handleSubmit=(e)=>alert(this.state) 
 
 handleSubmit = (e)=>{
-  //this.state.colors,this.state.name,this.state.email,this.state.files
- // console.log(this.state.colors,this.state.name,this.state.email,this.state.files,this.state.dropDownValue)
- console.log(this.state.files)
- console.log(this.fileUploaderRef)
-  // emailjs.send('service_0r9ih5c',"template_pfug14a", this.state, 'user_sjaoSadgmf5VEhR2wcW1T')
-  //   .then((response) => {
-  //      console.log('SUCCESS!', response.status, response.text);
-  //   }, (err) => {
-  //      console.log('FAILED...', err);
-  //   });
+
     this.sendEmail(this.state).then(submited => {
       toast.success('Email sent successfully');
       
