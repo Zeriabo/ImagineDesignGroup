@@ -1,4 +1,5 @@
 import React, { useState, useCallback, Component } from 'react'
+
 import  {useTransition}  from 'react-spring'
 import {  animated } from 'react-spring'
 import { SketchPicker } from 'react-color'
@@ -9,12 +10,15 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
 import emailjs from 'emailjs-com';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-//import transitions from './trans'
-export default class Interior extends React.Component { 
+import FileUpload from './fileupload'
+import {ImgFileUpload} from './ImgFileUpload'
+
+class Interior extends React.Component { 
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
-  this.state = {name:'',email:'',color: '#fff',index:0,colors:[],files:[],changedFileIndex: -1, dropdownOpen: false,  dropDownValue: 'Select action',key:'',note:''};
+  this.state = {name:'',email:'',color: '#fff',index:0,colors:[],files:[],changedFileIndex: -1, dropdownOpen: false, 
+   dropDownValue: 'Select action',key:'',note:'',addInfo:''};
 
   this.handleSubmit = this.handleSubmit.bind(this)
 this.fileUploaderRef = React.createRef();
@@ -32,7 +36,9 @@ setEmail =(event)=>  this.setState({email: event.target.value});
 fileUpload = (e) => {
 let changedFile = e.target.files[0];
 let uploadedFiles = e.target.files;
+console.log(uploadedFiles)
 
+console.log(changedFile)
 if (this.state.changedFileIndex >= 0) {
     this.setState(prevState => {
         const list = [];
@@ -42,10 +48,12 @@ if (this.state.changedFileIndex >= 0) {
             else
                 list.push(file);
         });
+      
         return {
             files: list,
             changedFileIndex: -1,
         };
+       
     });
 } else if (this.state.files.length > 0) {
     this.setState(prevState => {
@@ -54,7 +62,7 @@ if (this.state.changedFileIndex >= 0) {
 } else
     this.setState({files: [...e.target.files]});
   
-  
+
 this.onFileUpload()
 };
 
@@ -85,17 +93,18 @@ this.setState(prevState => {
  
 onFileUpload=event=>
 {
- console.log(this.state)
+ console.log(this.state.files)
 }
 handleRemoveFile = (pos) =>{
   console.log(pos)
 }
    onFileChange=event =>{
     var file = event.target.files[0];
+    console.log(file.data.path)
     this.state.files.push({
   id   : this.state.files.length,
-  file :  file,
-  dirs: dirs
+  file :  file
+  
 });
 
      document.getElementsByTagName("p")[0].innerHTML+=" "+event.target.files[0].name
@@ -152,7 +161,9 @@ handleEmptyList = ()=>{
    console.log("Can't Empty list")
  }
 }
-
+handleTextChange = (event)=>{
+   this.setState({addInfo:event.target.value})
+}
 handleChangeComplete = (color) => { 
 
 this.setState({ color: color.hex });
@@ -165,22 +176,54 @@ return (this.state.colors.length==0)?   document.getElementById("myDIV1").style.
 };
 
 handleSubmit = (e)=>{
+  let interiorForm = document.getElementById('interiorForm');
+ var formData = new FormData()
 
-    this.sendEmail(this.state).then(submited => {
+   formData.append("Name",this.state.name)
+
+   formData.append("Email",this.state.email)
+
+ for (let i = 0; i < this.state.colors.length; i++)
+ {
+    formData.append("color"+i,this.state.colors[i])
+ }
+
+
+
+  formData.append("Theme",this.state.note)
+
+  formData.append("AdditionalInfo",this.state.addInfo)
+
+
+  for(let i = 0; i < this.state.files.length; i++)
+  {
+    formData.append("File"+i,this.state.files[i])
+  }
+ var options = { content: formData };
+
+ for(var pair of formData.entries()) {
+  console.log(pair[0]+ ', '+ pair[1]);
+}
+    this.sendEmail(formData).then(submited => {
       toast.success('Email sent successfully');
-      
+   
       this.setState({ key: 'cleared' })
-      this.setState({ note: 'Email sent successfully', loading: false });},)
+      this.setState({ note: this.state.dropDownValue });},)
       .catch(errors => {toast.error('Error occured')
     this.setState({ errors, loading: false })});
 e.preventDefault();
 }
 
 sendEmail = async emailData => 
-{
+{ 
   console.log(emailData);
-  return axios.post('http://localhost:4444/api/v1/form', this.state)
-  .then(res => res.data,err => Promise.reject(err.response.data.errors))
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", 'http://localhost:4444/uploads', true);
+  //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  
+  xhr.send(emailData);
+  // return axios.post('http://localhost:4444/uploads', emailData)
+  // .then(res => res.data,err => Promise.reject(err.response.data.errors))
 };
 
   render() {
@@ -193,7 +236,7 @@ sendEmail = async emailData =>
     <MDBCardTitle>Design Application</MDBCardTitle>
 
     <MDBCol>
-    <input type="text" name="name" placeholder="Name" value={this.state.name} onChange={this.setName} />
+    <input id="interiorForm" type="text" name="name" placeholder="Name" value={this.state.name} onChange={this.setName} />
     </MDBCol>
     <MDBRow> &nbsp;</MDBRow>
     <MDBRow>
@@ -262,13 +305,13 @@ sendEmail = async emailData =>
        <MDBRow><MDBCol><p id="files"></p></MDBCol></MDBRow>
        </div>
  <MDBRow> &nbsp;</MDBRow>
- 
+
 
  <MDBRow>
     <MDBCol> 
-    <label htmlFor="formGroupExampleInput"><big>Color: </big></label>
+  
       </MDBCol><MDBCol><SketchPicker 
-                 width={220}
+                 width={200}
                  color={this.state.color}
                  onChange={this.handleChangeComplete}
       /></MDBCol>   
@@ -290,6 +333,7 @@ sendEmail = async emailData =>
 <MDBCol rowSpan='2' ><label htmlFor="formGroupExampleInput">5<sub>st</sub> Color</label></MDBCol>
  <MDBCol class="myDIV" id="myDIV5">
 </MDBCol>
+
        </MDBRow>
 <MDBRow>
 <div class="col-5">
@@ -307,28 +351,27 @@ sendEmail = async emailData =>
        </MDBRow>
        <div class="col-13">   
 <MDBRow><MDBCol  >
-          <textarea cols="50" value={this.state.value} onChange={this.handleChange} rows={6} name="info" placeholder='  Additional Informations'/>        
+          <textarea cols="50" value={this.state.addInfo} onChange={this.handleTextChange} rows={6} name="info"
+           placeholder='  Additional Informations'/>        
   </MDBCol></MDBRow>
   <div class="row-md-14">
   <Button as="input" type="submit" value="Submit" >Submit</Button>
   &nbsp;&nbsp;&nbsp;
   <Button as="input" type="reset" value="Reset" >Reset</Button> 
-
   </div>
  
   </div>
    {this.state.name}
    
       </form>
-     
+
       </MDBContainer>
      
     );
   }
 }
 
-
-
+export default Interior
  
 
 

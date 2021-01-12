@@ -5,8 +5,12 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-
+import { createStore, compose, combineReducers } from 'redux';import { reducer as formReducer } from 'redux-form';
+export const init = () => {
+  const reducer = combineReducers({form: formReducer,});
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  const store = createStore(reducer);return store;
+}
 ReactDOM.render(
   <BrowserRouter>
     <App />
