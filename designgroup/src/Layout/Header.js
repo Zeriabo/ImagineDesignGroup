@@ -26,38 +26,19 @@ export class Header extends Component {
 <li>&nbsp;</li>
          
             <li class="nav-item dropdown position-relative">
-          <a class="nav-link dropdown-toggle" href='#' id="h2-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href='/Design' id="h2-dropdown" data-toggle="dropdown"  aria-expanded="false">
           <font size='5'>Design</font> <i class="icon-arrow-down ml-1 font-12"></i>
 						</a>
             <ul class="dropdown-menu">
             <div class="btn-group dropright">
-            <div class="btn-group shadow-0"  role="group" >
-            <a class="nav-link dropdown-toggle" href='#' id="h2-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <font size='5'>Architectire</font> <i class="icon-arrow-down ml-1 font-12"></i>
-						</a>
-              <div class="dropdown-menu">
-              <div class="btn-group shadow-0"  role="group" >  <a class="dropdown-item" href="#">Theme</a></div>
-              <div class="btn-group shadow-0"  role="group" >  <a class="dropdown-item" href="#">Theme</a></div>
-              <div class="btn-group shadow-0"  role="group" >  <a class="dropdown-item" href="#">Theme</a></div>
-              <div class="btn-group shadow-0"  role="group" >  <a class="dropdown-item" href="#">Theme</a></div>
-              </div>
-              </div>
+          
               <li class="nav-item dropdown position-relative">
-          <a class="nav-link dropdown-toggle" href='#' id="h2-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <font size='5'>Design</font> <i class="icon-arrow-down ml-1 font-12"></i>
-						</a>
+         
             <ul class="dropdown-menu">
             <div class="btn-group dropright">
             <div class="btn-group shadow-0"  role="group" >
-            <a class="nav-link dropdown-toggle" href='#' id="h2-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <font size='5'>Architectire</font> <i class="icon-arrow-down ml-1 font-12"></i>
-						</a>
-              <div class="dropdown-menu">
-              <div class="btn-group shadow-0"  role="group" >  <a class="dropdown-item" href="#">Theme</a></div>
-              <div class="btn-group shadow-0"  role="group" >  <a class="dropdown-item" href="#">Theme</a></div>
-              <div class="btn-group shadow-0"  role="group" >  <a class="dropdown-item" href="#">Theme</a></div>
-              <div class="btn-group shadow-0"  role="group" >  <a class="dropdown-item" href="#">Theme</a></div>
-              </div>
+         
+        
               </div>
               
               <li><a class="dropdown-item" href="Color">Color</a></li>
@@ -86,16 +67,16 @@ export class Header extends Component {
           
          
           <li class="nav-item dropdown position-relative">
-          <a class="nav-link dropdown-toggle" href="#" id="h2-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="/Projects" id="h2-dropdown" data-toggle="dropdown"  aria-expanded="false">
           <font size='5'>Projects</font> <i class="icon-arrow-down ml-1 font-12"></i>
 						</a>
             <ul class="dropdown-menu">
             <div class="btn-group dropright">
-              <li><a class="dropdown-item" href="#">Add a projects</a></li>
-              <li><a class="dropdown-item" href="#">Projects</a></li>
-              <li><a class="dropdown-item" href="#">Consulting</a></li>
+              <li><a class="dropdown-item" href="/AddProject">Add a projects</a></li>
+              <li><a class="dropdown-item" href="/Projects">Projects</a></li>
+              <li><a class="dropdown-item" href="/Consulting">Consulting</a></li>
               <li class="divider" role="separator"></li>
-              <li><a class="dropdown-item" href="#">Contact us</a></li>
+              <li><a class="dropdown-item" href="/Contactus">Contact us</a></li>
              
          
     </div>
@@ -104,11 +85,7 @@ export class Header extends Component {
           
           
           </ul>
-          <ul class="navbar-nav ml-auto">
-          <li class="nav-item active"><a class="nav-link" href="#"><i class="icon-bubble"></i> Need help?</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-        </ul>
+    
         
           </div>
 

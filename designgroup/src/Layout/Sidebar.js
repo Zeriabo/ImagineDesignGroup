@@ -22,18 +22,25 @@ export default props => {
     </a>
   </Menu>
   ):(window.location.pathname == "/Exterior")?(
-    <Menu >
+    <Menu isOpen={ true }>
       <a className="menu-item" href="/">
      Home
       </a>
-      <a className="menu-item" >
+      <a><u>Exterior: </u></a>
+      <a className="menu-item" href="/Architecture" >
         Architecture
    
       </a>
-      <a className="menu-item" href="/lanscaping">
-        LandScaping
+      <a className="menu-item" href="/Landscaping">
+        Landscaping
       </a>
-      
+      <a><u>see also: </u></a>
+      <a className="menu-item" href="/Projects">
+      Projects
+    </a>
+    <a className="menu-item" href="/About">
+      About US
+    </a>
     </Menu>
   ):(window.location.pathname=="/Design")?
   (   <Menu isOpen={ true }>

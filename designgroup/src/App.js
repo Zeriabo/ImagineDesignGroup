@@ -7,7 +7,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import { Provider } from 'react-redux';
-import Contact from './Layout/Contact'
+
 // React Notification
 const store = require('./reducers').init();
 function App() {
