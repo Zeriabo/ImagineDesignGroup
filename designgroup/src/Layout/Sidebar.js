@@ -1,9 +1,9 @@
 import React from 'react';
 import '../Sidebar.css'
 import { bubble as Menu } from 'react-burger-menu';
-export default props => {
+ const  Slidebar=() => {  
 
-  return (window.location.pathname== "/Interior")?
+  return (window.location.pathname=== "/Interior")?
   (
     <Menu >
     <a className="menu-item" href="/">
@@ -21,12 +21,12 @@ export default props => {
       About US
     </a>
   </Menu>
-  ):(window.location.pathname == "/Exterior")?(
+  ):(window.location.pathname === "/Exterior")?(
     <Menu isOpen={ true }>
       <a className="menu-item" href="/">
      Home
       </a>
-      <a><u>Exterior: </u></a>
+      <a href="/"><u>Exterior: </u></a>
       <a className="menu-item" href="/Architecture" >
         Architecture
    
@@ -34,7 +34,7 @@ export default props => {
       <a className="menu-item" href="/Landscaping">
         Landscaping
       </a>
-      <a><u>see also: </u></a>
+      <a href="/"><u>see also: </u></a>
       <a className="menu-item" href="/Projects">
       Projects
     </a>
@@ -42,12 +42,12 @@ export default props => {
       About US
     </a>
     </Menu>
-  ):(window.location.pathname=="/Design")?
+  ):(window.location.pathname==="/Design")?
   (   <Menu isOpen={ true }>
     <a className="menu-item" href="/">
    Home
     </a>
-    <a className="menu-item" >
+    <a className="menu-item" href="/">
       Design
       <ul>
         <li>   <a className="menu-item" href="/Interior">Interior</a></li>
@@ -60,7 +60,7 @@ export default props => {
     <a className="menu-item" href="/desserts">
       About US
     </a>
-  </Menu>):(window.location.pathname == "/Projects")?
+  </Menu>):(window.location.pathname === "/Projects")?
   (
    <Menu >
      <a className="menu-item" href="/">
@@ -98,4 +98,5 @@ export default props => {
   
 };
 
+export default Slidebar
  

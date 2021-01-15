@@ -1,6 +1,5 @@
     import React, { Component } from 'react';   
-    import Header from './Header'  
-    import Footer from './Footer'  
+  
     import Router from './Router'
     import { Container, Row, Col } from 'reactstrap';
     import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,7 +8,7 @@
         loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>  
       
         render() {  
-            return ( 
+            return ( <div  >
                 <Container>
                <Row>
                    <Col>
@@ -28,7 +27,7 @@
              
                
                 </Container> 
-         
+         </div>
             )  
         }  
     }  

@@ -1,22 +1,16 @@
 import React from 'react'
-import  {useTransition}  from 'react-spring' // Animation
-import {  animated } from 'react-spring' //animation
 import { SketchPicker } from 'react-color'
-
 import { MDBContainer, MDBRow, MDBCol, MDBCardBody, MDBCardTitle, MDBInput, MDBBtn } from 'mdbreact';
 import Form from 'react-bootstrap/Form'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import emailjs from 'emailjs-com';
-import { ToastContainer, toast } from 'react-toastify';
-import FileUpload from './fileupload'
-import {ImgFileUpload} from './ImgFileUpload'
+
 
 class Interior extends React.Component { 
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
   this.state = {name:'',email:'',color: '#fff',index:0,colors:[],files:[],changedFileIndex: -1, dropdownOpen: false, 
-   dropDownValue: 'Select action',key:'',note:'',addInfo:''};
+   dropDownValue: 'Select a Theme',key:'',note:'',addInfo:''};
 
   this.handleSubmit = this.handleSubmit.bind(this)
 this.fileUploaderRef = React.createRef();
@@ -27,6 +21,14 @@ toggle() {
   
   }));
 
+  if(this.state.dropDownValue === 'Classic')
+  {
+  alert('Classsic  changing')
+    document.getElementById('bg').style.backgroundImage="url(../../Files/Modern/1.jpg)";
+  }
+
+
+
 }
 changeValue =(event)=> this.setState({dropDownValue: event.currentTarget.textContent})
 setName = (event)=>   this.setState({name: event.target.value});
@@ -34,17 +36,15 @@ setEmail =(event)=>  this.setState({email: event.target.value});
 fileUpload = (e) => {
 let changedFile = e.target.files[0];
 let uploadedFiles = e.target.files;
-console.log(uploadedFiles)
 
-console.log(changedFile)
 if (this.state.changedFileIndex >= 0) {
     this.setState(prevState => {
         const list = [];
         prevState.files.map((file, i) => {
             if (i === prevState.changedFileIndex)
-                list.push(changedFile);
+              return   list.push(changedFile);
             else
-                list.push(file);
+              return   list.push(file);
         });
       
         return {
@@ -77,7 +77,7 @@ this.setState(prevState => {
         if (file.name !== filename) {
             list.push(file);
         }
-    });
+      return null    });
     return {
         files: list,
         changedFileIndex: -1,
@@ -118,22 +118,22 @@ handleChangeConfirmed = () => {
 }
 handleRemoveLast = ()=>{
 
-   if(this.state.colors.length==1)  { document.getElementById("myDIV1").style.backgroundColor = '#FFFAF0'
+   if(this.state.colors.length===1)  { document.getElementById("myDIV1").style.backgroundColor = '#FFFAF0'
    document.getElementById("myDIV2").style.backgroundColor = '#FFFAF0'
    document.getElementById("myDIV3").style.backgroundColor = '#FFFAF0'
    document.getElementById("myDIV4").style.backgroundColor = '#FFFAF0'
    document.getElementById("myDIV5").style.backgroundColor = '#FFFAF0'}
- else if (this.state.colors.length==2)  {document.getElementById("myDIV2").style.backgroundColor = '#FFFAF0'
+ else if (this.state.colors.length===2)  {document.getElementById("myDIV2").style.backgroundColor = '#FFFAF0'
  document.getElementById("myDIV3").style.backgroundColor = '#FFFAF0'
  document.getElementById("myDIV4").style.backgroundColor = '#FFFAF0'
  document.getElementById("myDIV5").style.backgroundColor = '#FFFAF0'
 }
- else if   (this.state.colors.length==3)  { document.getElementById("myDIV3").style.backgroundColor = '#FFFAF0'
+ else if   (this.state.colors.length===3)  { document.getElementById("myDIV3").style.backgroundColor = '#FFFAF0'
  document.getElementById("myDIV4").style.backgroundColor = '#FFFAF0'
  document.getElementById("myDIV5").style.backgroundColor = '#FFFAF0'}
- else if(this.state.colors.length==4) { document.getElementById("myDIV4").style.backgroundColor = '#FFFAF0'
+ else if(this.state.colors.length===4) { document.getElementById("myDIV4").style.backgroundColor = '#FFFAF0'
  document.getElementById("myDIV5").style.backgroundColor = '#FFFAF0'}
- else if (this.state.colors.length==5) document.getElementById("myDIV5").style.backgroundColor = '#FFFAF0'
+ else if (this.state.colors.length===5) document.getElementById("myDIV5").style.backgroundColor = '#FFFAF0'
 
   if(this.state.colors.length>0)
   {
@@ -148,13 +148,13 @@ handleRemoveLast = ()=>{
 handleEmptyList = ()=>{
  if(this.state.colors.length>0)
  {
-   this.state.colors=[]
+   
      document.getElementById("myDIV1").style.backgroundColor ='#FFFAF0'
      document.getElementById("myDIV2").style.backgroundColor = '#FFFAF0'
   document.getElementById("myDIV3").style.backgroundColor = '#FFFAF0'
     document.getElementById("myDIV4").style.backgroundColor = '#FFFAF0'
      document.getElementById("myDIV5").style.backgroundColor = '#FFFAF0'
-   console.log(this.state.colors)
+  
  }else{
    console.log("Can't Empty list")
  }
@@ -166,15 +166,15 @@ handleChangeComplete = (color) => {
 
 this.setState({ color: color.hex });
 
-return (this.state.colors.length==0)?   document.getElementById("myDIV1").style.backgroundColor = color.hex:
-(this.state.colors.length==1)?   document.getElementById("myDIV2").style.backgroundColor = color.hex:
-(this.state.colors.length==2)?   document.getElementById("myDIV3").style.backgroundColor = color.hex:
-(this.state.colors.length==3)?   document.getElementById("myDIV4").style.backgroundColor = color.hex:
-(this.state.colors.length==4)?   document.getElementById("myDIV5").style.backgroundColor = color.hex:null
+return (this.state.colors.length===0)?   document.getElementById("myDIV1").style.backgroundColor = color.hex:
+(this.state.colors.length===1)?   document.getElementById("myDIV2").style.backgroundColor = color.hex:
+(this.state.colors.length===2)?   document.getElementById("myDIV3").style.backgroundColor = color.hex:
+(this.state.colors.length===3)?   document.getElementById("myDIV4").style.backgroundColor = color.hex:
+(this.state.colors.length===4)?   document.getElementById("myDIV5").style.backgroundColor = color.hex:null
 };
 
 handleSubmit = (e)=>{
-  let interiorForm = document.getElementById('interiorForm');
+ 
  var formData = new FormData()
 
    formData.append("Name",this.state.name)
@@ -197,17 +197,17 @@ handleSubmit = (e)=>{
   {
     formData.append("File"+i,this.state.files[i])
   }
- var options = { content: formData };
+
 
  for(var pair of formData.entries()) {
   console.log(pair[0]+ ', '+ pair[1]);
 }
     this.sendEmail(formData).then(submited => {
-      toast.success('Email sent successfully');
+      //toast.success('Email sent successfully');
    
       this.setState({ key: 'cleared' })
       this.setState({ note: this.state.dropDownValue });},)
-      .catch(errors => {toast.error('Error occured')
+      .catch(errors => {console.log('Error occured')
     this.setState({ errors, loading: false })});
 e.preventDefault();
 }
@@ -226,7 +226,7 @@ sendEmail = async emailData =>
 
   render() {
     return (
-      
+   <div >
       <MDBContainer>
       <form onSubmit={this.handleSubmit}>
       <MDBCardBody>
@@ -263,6 +263,7 @@ sendEmail = async emailData =>
         </DropdownMenu>
       </Dropdown></div>
     </MDBCol></MDBRow>
+    <MDBRow> &nbsp;</MDBRow>
     <div class="col-md-12">
        <MDBCol>  
       
@@ -306,10 +307,8 @@ sendEmail = async emailData =>
 
 
  <MDBRow>
-    <MDBCol> 
-  
-      </MDBCol><MDBCol><SketchPicker 
-                 width={200}
+<MDBCol><SketchPicker 
+                 width={170}
                  color={this.state.color}
                  onChange={this.handleChangeComplete}
       /></MDBCol>   
@@ -334,7 +333,7 @@ sendEmail = async emailData =>
 
        </MDBRow>
 <MDBRow>
-<div class="col-5">
+<div class="col-4">
    <MDBCol>
 
 <MDBBtn variant="primary" action='' onClick ={this.handleChangeConfirmed}>Confirm Color</MDBBtn></MDBCol>
@@ -347,6 +346,7 @@ sendEmail = async emailData =>
  
        
        </MDBRow>
+       <MDBRow> &nbsp;</MDBRow>
        <div class="col-13">   
 <MDBRow><MDBCol  >
           <textarea cols="50" value={this.state.addInfo} onChange={this.handleTextChange} rows={6} name="info"
@@ -359,12 +359,14 @@ sendEmail = async emailData =>
   </div>
  
   </div>
-   {this.state.name}
+  
    </MDBCardBody>
       </form>
-     
+       
+    
       </MDBContainer>
-     
+      </div>
+      
     );
   }
 }
