@@ -1,14 +1,12 @@
-import React, { useState, useCallback, Component } from 'react'
-
-import  {useTransition}  from 'react-spring'
-import {  animated } from 'react-spring'
+import React from 'react'
+import  {useTransition}  from 'react-spring' // Animation
+import {  animated } from 'react-spring' //animation
 import { SketchPicker } from 'react-color'
-import _default from 'react-bootstrap/esm/ModalFooter'
-import { MDBContainer, MDBRow, MDBCol, MDBCardBody, MDBCardTitle, MDBInput, MDBBtn,Button } from 'mdbreact';
+
+import { MDBContainer, MDBRow, MDBCol, MDBCardBody, MDBCardTitle, MDBInput, MDBBtn } from 'mdbreact';
 import Form from 'react-bootstrap/Form'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import emailjs from 'emailjs-com';
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import FileUpload from './fileupload'
 import {ImgFileUpload} from './ImgFileUpload'
@@ -231,18 +229,18 @@ sendEmail = async emailData =>
       
       <MDBContainer>
       <form onSubmit={this.handleSubmit}>
-     
+      <MDBCardBody>
    
     <MDBCardTitle>Design Application</MDBCardTitle>
-
+    <MDBRow>
     <MDBCol>
-    <input id="interiorForm" type="text" name="name" placeholder="Name" value={this.state.name} onChange={this.setName} />
+    <MDBInput id="interiorForm" type="text" name="name" label="Name" value={this.state.name} onChange={this.setName} />
     </MDBCol>
-    <MDBRow> &nbsp;</MDBRow>
+    </MDBRow>
     <MDBRow>
       <MDBCol>
   
-    <input type="text" name="email" placeholder="Email" value={this.state.email} onChange={this.setEmail}   />
+    <MDBInput type="text" name="email" label="Email" value={this.state.email} onChange={this.setEmail}   />
     </MDBCol>
 
     </MDBRow>
@@ -339,12 +337,12 @@ sendEmail = async emailData =>
 <div class="col-5">
    <MDBCol>
 
-<Button variant="primary" action='' onClick ={this.handleChangeConfirmed}>Confirm Color</Button></MDBCol>
+<MDBBtn variant="primary" action='' onClick ={this.handleChangeConfirmed}>Confirm Color</MDBBtn></MDBCol>
 
        <MDBCol>
-       <Button variant="warning" action='' onClick ={this.handleRemoveLast}>Remove last</Button>
+       <MDBBtn variant="warning" action='' onClick ={this.handleRemoveLast}>Remove last</MDBBtn>
          </MDBCol>
-       <MDBCol> <Button variant="danger"  action='' onClick ={this.handleEmptyList}>Empty list</Button>
+       <MDBCol> <MDBBtn variant="danger"  action='' onClick ={this.handleEmptyList}>Empty list</MDBBtn>
   </MDBCol></div>
  
        
@@ -355,16 +353,16 @@ sendEmail = async emailData =>
            placeholder='  Additional Informations'/>        
   </MDBCol></MDBRow>
   <div class="row-md-14">
-  <Button as="input" type="submit" value="Submit" >Submit</Button>
+  <MDBBtn as="input" type="submit" value="Submit" >Submit</MDBBtn>
   &nbsp;&nbsp;&nbsp;
-  <Button as="input" type="reset" value="Reset" >Reset</Button> 
+  <MDBBtn as="input" type="reset" value="Reset" >Reset</MDBBtn> 
   </div>
  
   </div>
    {this.state.name}
-   
+   </MDBCardBody>
       </form>
-
+     
       </MDBContainer>
      
     );
